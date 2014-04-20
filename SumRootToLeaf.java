@@ -8,21 +8,17 @@
  * }
  */
 public class Solution {
-    public int total = 0;
     public int sumNumbers(TreeNode root) {
+        return dfs(root, 0);
+    }
+
+    public int dfs(TreeNode root, int sum){
         if(root == null)
             return 0;
-        helper(root, 0);
-        return total;
-    }
-    
-    public void helper(TreeNode root, int sum){
-        if(root == null)
-            return ;
         if(root.left == null && root.right == null)
-            total += 10 * sum + root.val;
-        helper(root.left, 10 * sum + root.val);
-        helper(root.right, 10 * sum + root.val);
+            return 10*sum + root.val;
+        return dfs(root.left, 10*sum + root.val) + dfs(root.right, 10*sum + root.val);
     }
+
     
 }
