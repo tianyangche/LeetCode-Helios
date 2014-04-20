@@ -1,27 +1,24 @@
 public class Solution {
     public String getPermutation(int n, int k) {
-        int[] factor = new int[n+1];
-        factor[0] = 1;
+        if(n == 0)
+            return "";
+        int[] factorial = new int[n+1];
+        factorial[0] = 1;
         for(int i = 1; i <= n; i ++)
-            factor[i] = factor[i-1]*i;
+            factorial[i] = i * factorial[i-1];
+        k = k-1;
         StringBuffer result = new StringBuffer();
-        ArrayList<Integer> temp = new ArrayList<Integer>();
-        for(int i = 1; i <= n; i ++)
-            temp.add(i);
-        
-        
-        
-        int remain = k-1;
-        int curr = 0;
-        for(int i = n; i >= 1; i --){
-            curr = remain  / factor[i-1] ;
-            result.append(temp.get(curr) );
-            temp.remove(curr);
-            remain %= factor[i-1];
+        ArrayList<Integer> num = new ArrayList<Integer>();
+        for(int i = 0; i < n; i ++)
+            num.add(i+1);
+        for(int i = n; i > 0; i --){
+            int m = k / factorial[i-1];
+            result.append(num.get(m));
+            num.remove(m);
+            k %= factorial[i-1];
         }
+        return new String(result);
         
-        return result.toString();
-            
-            
+        
     }
 }
